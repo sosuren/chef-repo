@@ -15,6 +15,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.box_version = "20180430.0.0"
 
+  config.omnibus.chef_version = "13.8.5"
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -68,4 +70,12 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  config.vm.provision "chef_solo" do |chef|
+    chef.cookbooks_path = "cookbooks"
+    chef.data_bags_path = "data_bags"
+    chef.environments_path = "environments"
+    chef.roles_path = "roles"
+
+    chef.run_list = ["recipe[first_cookbook]"]
+  end
 end
