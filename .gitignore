@@ -17,6 +17,9 @@
 clients
 nodes
 
+## Ignore Vagrant files
+.vagrant/
+
 # ## OS junk files
 # [Tt]humbs.db
 # *.DS_Store
@@ -29,7 +32,6 @@ nodes
 
 # ##Chef
 # .kitchen/
-# .vagrant
 # nodes
 # metadata.json
 
