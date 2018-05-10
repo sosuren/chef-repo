@@ -31,7 +31,7 @@ nodes
 # !cookbooks/chef_workstation
 
 # ##Chef
-# .kitchen/
+.kitchen/
 # nodes
 # metadata.json
 
