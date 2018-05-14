@@ -7,7 +7,8 @@
     "do_droplet_region": "sgp1",
     "do_droplet_size": "s-2vcpu-4gb",
     "do_droplet_name": "base-image",
-    "do_droplet_timeout": "15m"
+    "do_droplet_timeout": "15m",
+    "chef_dir": "/tmp/packer-chef-solo"
   },
   "builders": [{
     "type": "digitalocean",
@@ -21,5 +22,18 @@
     "snapshot_name": "{{user `do_snapshot_name`}}",
     "snapshot_regions": "{{user `do_snapshot_regioins`}}",
     "state_timeout": "{{user `do_droplet_timeout`}}"
-  }]
+  }],
+  "provisioners": [
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["lib-cookbooks"],
+      "data_bags_path": "./data_bags",
+      "environments_path": "./environments",
+      "roles_path": "./roles",
+      "install_command": "curl -L https://omnitruck.chef.io/install.sh | sudo bash -s -- -v 13.8.5",
+      "staging_directory": "{{user `chef_dir`}}",
+      "run_list": ["recipe[base]"],
+      "version": "13.8.5"
+    }
+  ]
 }
