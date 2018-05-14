@@ -1,0 +1,25 @@
+{
+  "variables": {
+    "do_api_token": "dummy-token",
+    "do_snapshot_name": "",
+    "do_snapshot_regioins": "sgp1",
+    "do_base_image": "ubuntu-16-04-x64",
+    "do_droplet_region": "sgp1",
+    "do_droplet_size": "s-2vcpu-4gb",
+    "do_droplet_name": "base-image",
+    "do_droplet_timeout": "15m"
+  },
+  "builders": [{
+    "type": "digitalocean",
+    "api_token": "{{user `do_api_token`}}",
+    "image": "{{user `do_base_image`}}",
+    "region": "{{user `do_droplet_region`}}",
+    "size": "{{user `do_droplet_size`}}",
+    "droplet_name": "{{user `do_droplet_name`}}",
+    "ssh_username": "root",
+    "private_networking": true,
+    "snapshot_name": "{{user `do_snapshot_name`}}",
+    "snapshot_regions": "{{user `do_snapshot_regioins`}}",
+    "state_timeout": "{{user `do_droplet_timeout`}}"
+  }]
+}
