@@ -125,6 +125,7 @@ nodes
 # ## Office Temp Files
 # ~$*
 
-## Terraform State Files
+## Terraform Files
+.terraform/
 *.tfstate
 *.tfstate.backup
