@@ -22,3 +22,49 @@ The config file, `.chef/knife.rb` is a repository specific configuration file fo
 # Next Steps
 
 Read the README file in each of the subdirectories for more information about what goes in those directories.
+
+# Launching Droplet
+
+`export DO_PAT={YOUR_PERSONAL_ACCESS_TOKEN}`
+
+`ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub | awk '{print $2}' | sed 's/MD5://g'`
+
+copy output and `export SSH_FINGERPRINT=COPIED_FINGERPRINT`
+
+`export TF_LOG=TRACE`
+
+`terraform plan \
+  -var "do_token=${DO_PAT}" \
+  -var "pub_key=$HOME/.ssh/id_rsa.pub" \
+  -var "pvt_key=$HOME/.ssh/id_rsa" \
+  -var "ssh_fingerprint=$SSH_FINGERPRINT"`
+
+
+`terraform apply \
+-var "do_token=${DO_PAT}" \
+-var "pub_key=$HOME/.ssh/id_rsa.pub" \
+-var "pvt_key=$HOME/.ssh/id_rsa" \
+-var "ssh_fingerprint=$SSH_FINGERPRINT"`
+
+
+`terraform show terraform.tfstate`
+
+`terraform refresh \
+  -var "do_token=${DO_PAT}" \
+  -var "pub_key=$HOME/.ssh/id_rsa.pub" \
+  -var "pvt_key=$HOME/.ssh/id_rsa" \
+  -var "ssh_fingerprint=$SSH_FINGERPRINT"`
+
+
+`terraform plan -destroy -out=terraform.tfplan \
+  -var "do_token=${DO_PAT}" \
+  -var "pub_key=$HOME/.ssh/id_rsa.pub" \
+  -var "pvt_key=$HOME/.ssh/id_rsa" \
+  -var "ssh_fingerprint=$SSH_FINGERPRINT"`
+
+
+`terraform apply terraform.tfplan`
+
+
+
+Ref: https://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean
